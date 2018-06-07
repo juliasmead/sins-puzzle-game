@@ -139,6 +139,6 @@ public class InventoryController : MonoBehaviour
                 activeItem.Hide();
             }
         }
-        selected.transform.position = i.transform.position;
+        i.Selected = selected;
     }
 }
