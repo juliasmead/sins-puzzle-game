@@ -23,6 +23,9 @@ public class InventoryController : MonoBehaviour
     }
 
     public delegate bool Unlock(PickupType p);
+    /// <summary>
+    /// Attempts to use the active item. 
+    /// </summary>
     public static Unlock UseEvent;
 
     /// <summary>
@@ -139,7 +142,7 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// Uses the currently active pickup. 
+    /// Tries to use the current active item. 
     /// </summary>
     private bool UsePickup(PickupType p) {
         if (p == activeItem.Type)
