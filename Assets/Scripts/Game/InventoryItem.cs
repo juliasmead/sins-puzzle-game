@@ -41,6 +41,18 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
                     Show();
                 }
             }
+            InventoryController.Viewable v = InventoryController.ViewableEvent(type);
+            if (transform.childCount > 0)
+            {
+                GameObject g = transform.GetChild(0).gameObject;
+                g.SetActive(v != null);
+                Button b = g.GetComponentInChildren<Button>();
+                b.onClick.RemoveAllListeners();
+                if (v != null)
+                {
+                    b.onClick.AddListener(delegate { InventoryController.ShowViewableEvent(v.sprite); });
+                }
+            }
         }
     }
 

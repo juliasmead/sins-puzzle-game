@@ -20,6 +20,14 @@ public class InventoryController : MonoBehaviour
         key = 0,
         knife = 1,
         ham = 2,
+        note = 3,
+    }
+
+    [System.Serializable]
+    public class Viewable
+    {
+        public PickupType pickup;
+        public Sprite sprite;
     }
 
     public delegate bool Unlock(PickupType p);
@@ -39,6 +47,19 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public static GetSprite SpriteEvent;
 
+    public delegate Viewable GetViewable(PickupType p);
+    /// <summary>
+    /// Gets the viewable sprite for a given pickup. 
+    /// </summary>
+    public static GetViewable ViewableEvent;
+
+    /// <summary>
+    /// Shows the viewable sprite
+    /// </summary>
+    public static Action<Sprite> ShowViewableEvent;
+
+    [Header("Slide References")]
+
     /// <summary>
     /// The slidable part of the inventory. 
     /// </summary>
@@ -53,6 +74,8 @@ public class InventoryController : MonoBehaviour
     /// The inventory backdrop. 
     /// </summary>
     public FadeableUI backdrop;
+
+    [Header("Selected References")]
 
     /// <summary>
     /// The gameobject that shows the selected inventory item. 
@@ -69,10 +92,22 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public InventoryItem activeItem;
 
+    [Header("Viewable References")]
+
+    public FadeableUI spriteView;
+
+    public Image viewableImage;
+
+    public Button closeSpriteView;
+
+    [Header("Sprites")]
+
     /// <summary>
     /// The list of sprites for each pickup. 
     /// </summary>
     public List<Sprite> objectSprites;
+
+    public List<Viewable> viewableObjects;
 
     /// <summary>
     /// The list of all inventory items. 
@@ -104,14 +139,18 @@ public class InventoryController : MonoBehaviour
         {
             UseEvent = UsePickup;
             AddPickupEvent = AddPickup;
+            ShowViewableEvent = ShowViewable;
             expander.onClick.AddListener(Expand);
             inventoryItems = GetComponentsInChildren<InventoryItem>();
             foreach (InventoryItem i in inventoryItems)
             {
                 i.button.onClick.AddListener(delegate { SelectItem(i); });
             }
+            spriteView.GetComponent<Button>().onClick.AddListener(delegate { StartCoroutine(spriteView.FadeOut(dur: 0.05f)); });
+            closeSpriteView.onClick.AddListener(delegate { StartCoroutine(spriteView.FadeOut(dur: 0.05f)); });
         }
         SpriteEvent = FindPickupSprite;
+        ViewableEvent = FindViewable;
     }
 
     private void Update()
@@ -142,9 +181,32 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
+    /// Finds the sprite for the given pickup. 
+    /// </summary>
+    /// <returns>The viewable struct.</returns>
+    private Viewable FindViewable(PickupType p)
+    {
+        foreach (Viewable v in viewableObjects)
+        {
+            if (v.pickup == p)
+            {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    private void ShowViewable(Sprite s)
+    {
+        viewableImage.sprite = s;
+        StartCoroutine(spriteView.FadeIn(dur: 0.05f));
+    }
+
+    /// <summary>
     /// Tries to use the current active item. 
     /// </summary>
-    private bool UsePickup(PickupType p) {
+    private bool UsePickup(PickupType p)
+    {
         if (p == activeItem.Type)
         {
             foreach (InventoryItem i in inventoryItems)
@@ -175,7 +237,8 @@ public class InventoryController : MonoBehaviour
             ++i;
         }
         inventoryItems[i].Type = p;
-        if(i == 9 && backdrop.IsVisible) {
+        if (i == 9 && backdrop.IsVisible)
+        {
             expander.interactable = false;
             StartCoroutine(ExpandRoutine(false));
         }
