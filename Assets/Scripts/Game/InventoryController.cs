@@ -22,6 +22,9 @@ public class InventoryController : MonoBehaviour
         ham = 2,
     }
 
+    public delegate bool Unlock(PickupType p);
+    public static Unlock UseEvent;
+
     /// <summary>
     /// Adds a pickup.
     /// </summary>
@@ -96,6 +99,7 @@ public class InventoryController : MonoBehaviour
     {
         if (Application.isPlaying)
         {
+            UseEvent = UsePickup;
             AddPickupEvent = AddPickup;
             expander.onClick.AddListener(Expand);
             inventoryItems = GetComponentsInChildren<InventoryItem>();
@@ -132,6 +136,27 @@ public class InventoryController : MonoBehaviour
             return objectSprites[(int)p];
         }
         return null;
+    }
+
+    /// <summary>
+    /// Uses the currently active pickup. 
+    /// </summary>
+    private bool UsePickup(PickupType p) {
+        if (p == activeItem.Type)
+        {
+            foreach (InventoryItem i in inventoryItems)
+            {
+                if (selected.transform.position == i.transform.position)
+                {
+                    i.Hide();
+                    SelectItem(i);
+                    i.Type = PickupType.none;
+                    break;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
