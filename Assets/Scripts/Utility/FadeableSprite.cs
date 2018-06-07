@@ -51,7 +51,7 @@ public class FadeableSprite : Fadeable
         }
     }
 
-    void Reset()
+    protected virtual void Reset()
     {
         rend = GetComponent<SpriteRenderer>();
         if (rend == null)
@@ -59,10 +59,5 @@ public class FadeableSprite : Fadeable
             rend = gameObject.AddComponent<SpriteRenderer>();
         }
 
-    }
-
-    private void SetAlpha(float alpha)
-    {
-        rend.color = new Color(rend.color.r, rend.color.g, rend.color.b, alpha);
     }
 }

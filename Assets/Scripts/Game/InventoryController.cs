@@ -21,8 +21,17 @@ public class InventoryController : MonoBehaviour
     public delegate Sprite GetSprite(PickupType p);
     public static GetSprite SpriteEvent;
 
+    public GameObject slidable;
+
     public Button expander;
+
     public FadeableUI backdrop;
+
+    public GameObject selected;
+
+    public FadeableUI activeSlot;
+
+    public InventoryItem activeItem;
 
     public List<Sprite> objectSprites;
 
@@ -35,6 +44,10 @@ public class InventoryController : MonoBehaviour
             AddPickupEvent = AddPickup;
             expander.onClick.AddListener(Expand);
             inventoryItems = GetComponentsInChildren<InventoryItem>();
+            foreach (InventoryItem i in inventoryItems)
+            {
+                i.button.onClick.AddListener(delegate { SelectItem(i); });
+            }
         }
         SpriteEvent = FindPickupSprite;
     }
@@ -96,13 +109,36 @@ public class InventoryController : MonoBehaviour
 
         Vector3 destination = new Vector3(0, down ? -290f : -190f, 0);
 
-        while (Vector3.Distance(transform.localPosition, destination) > 1)
+        while (Vector3.Distance(slidable.transform.localPosition, destination) > 1)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, destination, 5f * Time.smoothDeltaTime);
+            slidable.transform.localPosition = Vector3.Lerp(slidable.transform.localPosition, destination, 5f * Time.smoothDeltaTime);
             yield return new WaitForEndOfFrame();
         }
 
         expander.interactable = true;
     }
 
+    private void SelectItem(InventoryItem i)
+    {
+        selected.SetActive(selected.transform.position != i.transform.position || !selected.activeInHierarchy);
+        if (selected.activeInHierarchy)
+        {
+            activeItem.Type = i.Type;
+            if (!activeSlot.IsVisible)
+            {
+                activeSlot.SelfFadeIn(dur: 0.15f);
+                activeItem.Show();
+            }
+        }
+        else
+        {
+            activeItem.Type = PickupType.none;
+            if (activeSlot.IsVisible)
+            {
+                activeSlot.SelfFadeOut(dur: 0.15f);
+                activeItem.Hide();
+            }
+        }
+        selected.transform.position = i.transform.position;
+    }
 }

@@ -52,7 +52,7 @@ public class FadeableUI : Fadeable
         }
     }
 
-    void Reset()
+    protected virtual void Reset()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)

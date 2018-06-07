@@ -37,6 +37,8 @@ public class InventoryItem : FadeableUI
         }
     }
 
+    public Button button;
+
     private InventoryController.PickupType type = InventoryController.PickupType.none;
 
     private Image image;
@@ -45,5 +47,10 @@ public class InventoryItem : FadeableUI
     {
         base.Awake();
         image = GetComponent<Image>();
+    }
+
+    protected override void Reset() {
+        base.Reset();
+        button = GetComponent<Button>();
     }
 }
