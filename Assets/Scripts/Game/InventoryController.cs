@@ -37,6 +37,22 @@ public class InventoryController : MonoBehaviour
 
     private InventoryItem[] inventoryItems;
 
+    private int ItemCount
+    {
+        get
+        {
+            int i = 0;
+            foreach (InventoryItem it in inventoryItems)
+            {
+                if (it.Type != PickupType.none)
+                {
+                    ++i;
+                }
+            }
+            return i;
+        }
+    }
+
     void Awake()
     {
         if (Application.isPlaying)
@@ -84,16 +100,15 @@ public class InventoryController : MonoBehaviour
             ++i;
         }
         inventoryItems[i].Type = p;
+        if(i == 9 && backdrop.IsVisible) {
+            expander.interactable = false;
+            StartCoroutine(ExpandRoutine(false));
+        }
     }
 
     private void Expand()
     {
         expander.interactable = false;
-        StartCoroutine(ExpandRoutine());
-    }
-
-    private IEnumerator ExpandRoutine()
-    {
         Transform arrow = expander.transform.GetChild(0);
         arrow.localScale = new Vector3(1, arrow.localScale.y * -1, 1);
 
@@ -106,8 +121,12 @@ public class InventoryController : MonoBehaviour
         {
             backdrop.SelfFadeIn(dur: 0.4f);
         }
+        StartCoroutine(ExpandRoutine(down));
+    }
 
-        Vector3 destination = new Vector3(0, down ? -290f : -190f, 0);
+    private IEnumerator ExpandRoutine(bool down)
+    {
+        Vector3 destination = new Vector3(0, down ? -290f : (ItemCount < 10 ? -190f : -98f), 0);
 
         while (Vector3.Distance(slidable.transform.localPosition, destination) > 1)
         {
