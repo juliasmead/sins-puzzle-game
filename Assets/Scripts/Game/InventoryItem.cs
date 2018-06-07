@@ -4,8 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// An item in the inventory. 
+/// </summary>
 public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandler
 {
+    /// <summary>
+    /// Gets or sets the type of this item. Fades it in and out accordingly.  
+    /// </summary>
     public InventoryController.PickupType Type
     {
         get { return type; }
@@ -38,6 +44,9 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
         }
     }
 
+    /// <summary>
+    /// Gets or sets whether this sprite is selected with the given gameobject. 
+    /// </summary>
     public GameObject Selected
     {
         get { return selected; }
@@ -51,18 +60,39 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
         }
     }
 
+    /// <summary>
+    /// This item's button for selecting. 
+    /// </summary>
     public Button button;
 
+    /// <summary>
+    /// The pickup type of this inventory item. 
+    /// </summary>
     private InventoryController.PickupType type = InventoryController.PickupType.none;
 
+    /// <summary>
+    /// This item's image. 
+    /// </summary>
     private Image image;
 
+    /// <summary>
+    /// Whether or not this item is currently following the cursor. 
+    /// </summary>
     private bool following = false;
 
+    /// <summary>
+    /// This item's position before it followed the cursor. 
+    /// </summary>
     private Vector3 originalPosition;
 
+    /// <summary>
+    /// The item that the cursor is currently hovering over. 
+    /// </summary>
     private static InventoryItem currentHover;
 
+    /// <summary>
+    /// Gets or sets whether this sprite is selected with the given gameobject. 
+    /// </summary>
     private GameObject selected;
 
     protected override void Awake()
@@ -85,11 +115,14 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
         }
     }
 
+    /// <summary>
+    /// Follows the cursor after a brief delay. 
+    /// </summary>
     private IEnumerator FollowCursor()
     {
         originalPosition = transform.position;
         following = true;
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
         if (following)
         {
             image.raycastTarget = false;

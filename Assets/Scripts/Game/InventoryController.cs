@@ -5,9 +5,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the player's inventory. 
+/// </summary>
 [ExecuteInEditMode]
 public class InventoryController : MonoBehaviour
 {
+    /// <summary>
+    /// The type of pickup. Each pickup has a corresponding sprite. 
+    /// </summary>
     public enum PickupType
     {
         none = -1,
@@ -16,27 +22,60 @@ public class InventoryController : MonoBehaviour
         ham = 2,
     }
 
+    /// <summary>
+    /// Adds a pickup.
+    /// </summary>
     public static Action<PickupType> AddPickupEvent;
 
     public delegate Sprite GetSprite(PickupType p);
+    /// <summary>
+    /// Gets the sprite for a given pickup. 
+    /// </summary>
     public static GetSprite SpriteEvent;
 
+    /// <summary>
+    /// The slidable part of the inventory. 
+    /// </summary>
     public GameObject slidable;
 
+    /// <summary>
+    /// The button to show or hide the inventory. 
+    /// </summary>
     public Button expander;
 
+    /// <summary>
+    /// The inventory backdrop. 
+    /// </summary>
     public FadeableUI backdrop;
 
+    /// <summary>
+    /// The gameobject that shows the selected inventory item. 
+    /// </summary>
     public GameObject selected;
 
+    /// <summary>
+    /// The active item Ui. 
+    /// </summary>
     public FadeableUI activeSlot;
 
+    /// <summary>
+    /// The inventory item for the current active item. 
+    /// </summary>
     public InventoryItem activeItem;
 
+    /// <summary>
+    /// The list of sprites for each pickup. 
+    /// </summary>
     public List<Sprite> objectSprites;
 
+    /// <summary>
+    /// The list of all inventory items. 
+    /// </summary>
     private InventoryItem[] inventoryItems;
 
+    /// <summary>
+    /// Gets the current number of inventory items. 
+    /// </summary>
     private int ItemCount
     {
         get
@@ -82,6 +121,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Finds the sprite for the given pickup. 
+    /// </summary>
+    /// <returns>The pickup sprite.</returns>
     private Sprite FindPickupSprite(PickupType p)
     {
         if ((int)p < objectSprites.Count && p != PickupType.none)
@@ -91,7 +134,9 @@ public class InventoryController : MonoBehaviour
         return null;
     }
 
-
+    /// <summary>
+    /// Adds a pickup to the current inventory. 
+    /// </summary>
     private void AddPickup(PickupType p)
     {
         int i = 0;
@@ -106,6 +151,9 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows or hides the inventory. 
+    /// </summary>
     private void Expand()
     {
         expander.interactable = false;
@@ -124,6 +172,10 @@ public class InventoryController : MonoBehaviour
         StartCoroutine(ExpandRoutine(down));
     }
 
+    /// <summary>
+    /// Coroutine for sliding the inventory. 
+    /// </summary>
+    /// <param name="down">Whether or not it is sliding up or down.</param>
     private IEnumerator ExpandRoutine(bool down)
     {
         Vector3 destination = new Vector3(0, down ? -290f : (ItemCount < 10 ? -190f : -98f), 0);
@@ -137,6 +189,9 @@ public class InventoryController : MonoBehaviour
         expander.interactable = true;
     }
 
+    /// <summary>
+    /// Selects the given inventory item. 
+    /// </summary>
     private void SelectItem(InventoryItem i)
     {
         selected.SetActive(selected.transform.position != i.transform.position || !selected.activeInHierarchy);

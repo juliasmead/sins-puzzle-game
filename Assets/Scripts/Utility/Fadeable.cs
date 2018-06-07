@@ -24,17 +24,26 @@ public abstract class Fadeable : MonoBehaviour
 
     public bool IsVisible { get; protected set; }
 
+    /// <summary>
+    /// Gets or sets the alpha value.
+    /// </summary>
     public abstract float Alpha
     {
         get;
         set;
     }
 
+    /// <summary>
+    /// Sets whether or not the fading object is active. 
+    /// </summary>
     public abstract bool Active
     {
         set;
     }
 
+    /// <summary>
+    /// Sets whether or not the fading object blocks raycasts. 
+    /// </summary>
     public virtual bool BlocksRaycasts
     {
         set { }
