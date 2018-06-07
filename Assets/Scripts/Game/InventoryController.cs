@@ -151,6 +151,8 @@ public class InventoryController : MonoBehaviour
                     i.Hide();
                     SelectItem(i);
                     i.Type = PickupType.none;
+                    i.transform.SetAsLastSibling();
+                    inventoryItems = GetComponentsInChildren<InventoryItem>();
                     break;
                 }
             }
