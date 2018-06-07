@@ -5,7 +5,8 @@ using UnityEngine;
 /// <summary>
 /// A simple class that can be inherited to enable FadeIn / FadeOut functionality.
 /// </summary>
-public abstract class Fadeable : MonoBehaviour {
+public abstract class Fadeable : MonoBehaviour
+{
     protected const float FADE_IN_DUR = 0.3f;
     protected const float FADE_OUT_DUR = 0.2f;
 
@@ -23,12 +24,14 @@ public abstract class Fadeable : MonoBehaviour {
 
     public bool IsVisible { get; protected set; }
 
-    public abstract float Alpha {
+    public abstract float Alpha
+    {
         get;
         set;
     }
 
-    public abstract bool Active {
+    public abstract bool Active
+    {
         set;
     }
 
@@ -43,6 +46,11 @@ public abstract class Fadeable : MonoBehaviour {
         {
             return isFading;
         }
+    }
+
+    protected virtual void Awake()
+    {
+        IsVisible = Alpha > 0;
     }
 
     /// <summary>
@@ -159,5 +167,5 @@ public abstract class Fadeable : MonoBehaviour {
             StopCoroutine(fadeCoroutine);
         }
         fadeCoroutine = StartCoroutine(FadeOut(endAlpha, dur));
-    }	
+    }
 }
