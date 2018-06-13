@@ -13,6 +13,16 @@ public class CameraMover : MonoBehaviour
     public SpriteRenderer background;
 
     /// <summary>
+    /// The wall to the left of this wall. 
+    /// </summary>
+    public GameObject leftWall;
+
+    /// <summary>
+    /// The wall to the right of this wall. 
+    /// </summary>
+    public GameObject rightWall;
+
+    /// <summary>
     /// How close to the edge (0.5) the mouse must be before it starts moving.
     /// </summary>
     private const float MOUSE_EDGE = 0.35f;
@@ -43,11 +53,55 @@ public class CameraMover : MonoBehaviour
     private float downX;
 
     /// <summary>
-    /// Whether or not the camera was just moved by dragging. 
+    /// Whether or not the camera was just moved by dragging or swapping walls. 
     /// </summary>
-    private bool justMoved = false;
+    private static bool justMoved = false;
 
-    void Start()
+    /// <summary>
+    /// Whether or not this camera should be on the left on activation. 
+    /// </summary>
+    private static bool startLeft = false;
+
+    /// <summary>
+    /// Whether or not this camera should be on the right on activation. 
+    /// </summary>
+    private static bool startRight = false;
+
+    private void OnEnable()
+    {
+        if (leftWall)
+        {
+            UIManager.AssignLeftWallEvent(delegate
+            {
+                startRight = true;
+                justMoved = true;
+                leftWall.SetActive(true);
+                transform.parent.gameObject.SetActive(false);
+            });
+        }
+        if (rightWall)
+        {
+            UIManager.AssignRightWallEvent(delegate
+            {
+                startLeft = true;
+                justMoved = true;
+                rightWall.SetActive(true);
+                transform.parent.gameObject.SetActive(false);
+            });
+        }
+        if (startLeft)
+        {
+            transform.position = new Vector3(bounds.x, transform.position.y, transform.position.z);
+            startLeft = false;
+        }
+        if (startRight)
+        {
+            transform.position = new Vector3(bounds.y, transform.position.y, transform.position.z);
+            startRight = false;
+        }
+    }
+
+    void Awake()
     {
         cam = GetComponent<Camera>();
         float camExtent = cam.orthographicSize * Screen.width / Screen.height;
@@ -70,6 +124,24 @@ public class CameraMover : MonoBehaviour
         else
         {
             MoveByLocation();
+        }
+
+        if (rightWall && Mathf.Approximately(transform.position.x, bounds.y))
+        {
+            UIManager.SetRightWallInteractableEvent(true);
+        }
+        else
+        {
+            UIManager.SetRightWallInteractableEvent(false);
+        }
+
+        if (leftWall && Mathf.Approximately(transform.position.x, bounds.x))
+        {
+            UIManager.SetLeftWallInteractableEvent(true);
+        }
+        else
+        {
+            UIManager.SetLeftWallInteractableEvent(false);
         }
     }
 
