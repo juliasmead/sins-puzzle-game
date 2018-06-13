@@ -30,6 +30,12 @@ public class InventoryController : MonoBehaviour
         public Sprite sprite;
     }
 
+    public delegate bool Opened();
+    /// <summary>
+    /// Checks if the inventory is currently open. 
+    /// </summary>
+    public static Opened OpenedEvent;
+
     public delegate bool Unlock(PickupType p);
     /// <summary>
     /// Attempts to use the active item. 
@@ -137,6 +143,7 @@ public class InventoryController : MonoBehaviour
     {
         if (Application.isPlaying)
         {
+            OpenedEvent = IsOpened;
             UseEvent = UsePickup;
             AddPickupEvent = AddPickup;
             ShowViewableEvent = ShowViewable;
@@ -165,6 +172,11 @@ public class InventoryController : MonoBehaviour
                 SpriteEvent = FindPickupSprite;
             }
         }
+    }
+
+    private bool IsOpened()
+    {
+        return backdrop.IsVisible;
     }
 
     /// <summary>
@@ -271,11 +283,12 @@ public class InventoryController : MonoBehaviour
     /// <param name="down">Whether or not it is sliding up or down.</param>
     private IEnumerator ExpandRoutine(bool down)
     {
-        Vector3 destination = new Vector3(0, down ? -290f : (ItemCount < 10 ? -190f : -98f), 0);
+        // Could convert to screen coordinates to make it scale better vertically. 
+        Vector3 destination = new Vector3(0, down ? -300f : (ItemCount < 10 ? -180f : -88f), 0);
 
-        while (Vector3.Distance(slidable.transform.localPosition, destination) > 1)
+        while (Vector3.Distance(slidable.transform.localPosition, destination) > 11)
         {
-            slidable.transform.localPosition = Vector3.Lerp(slidable.transform.localPosition, destination, 5f * Time.smoothDeltaTime);
+            slidable.transform.localPosition = Vector3.Lerp(slidable.transform.localPosition, destination, 7f * Time.smoothDeltaTime);
             yield return new WaitForEndOfFrame();
         }
 

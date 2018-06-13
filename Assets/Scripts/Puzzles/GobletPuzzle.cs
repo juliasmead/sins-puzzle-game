@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class GobletPuzzle : MonoBehaviour {
+public class GobletPuzzle : MonoBehaviour
+{
+    /// <summary>
+    /// Attempts to solve the goblet puzzle. 
+    /// </summary>
+    public static Action SolveEvent;
 
     /// <summary>
     /// The list of sprites for each goblet. 
@@ -16,9 +22,16 @@ public class GobletPuzzle : MonoBehaviour {
     /// </summary>
     public static GetSprite SpriteEvent;
 
+    /// <summary>
+    /// The list of all the goblets. 
+    /// </summary>
+    private Goblet[] goblets;
+
     private void Awake()
     {
+        SolveEvent = Solve;
         SpriteEvent = FindGobletSprite;
+        goblets = GetComponentsInChildren<Goblet>();
     }
 
     /// <summary>
@@ -32,5 +45,31 @@ public class GobletPuzzle : MonoBehaviour {
             return gobletSprites[(int)t];
         }
         return null;
+    }
+
+    /// <summary>
+    /// Attempts to solve the goblet puzzle. 
+    /// </summary>
+    private void Solve()
+    {
+        if (Solved())
+        {
+            print("solved");
+        }
+    }
+
+    /// <summary>
+    /// Determines whether or not the goblet puzzle has been solved. 
+    /// </summary>
+    private bool Solved()
+    {
+        for (int i = 0; i < goblets.Length; ++i)
+        {
+            if ((int)goblets[i].AssignableType != i)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

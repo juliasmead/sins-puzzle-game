@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// An item in the inventory. 
 /// </summary>
-public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandler
+public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// Gets or sets the type of this item. Fades it in and out accordingly.  
@@ -146,7 +146,7 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
                 yield return new WaitForEndOfFrame();
             }
             transform.position = originalPosition;
-            if (currentHover != this)
+            if (currentHover != this && currentHover != null)
             {
                 InventoryController.PickupType tempType = Type;
                 Type = currentHover.Type;
@@ -175,5 +175,13 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         currentHover = this;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (currentHover == this)
+        {
+            currentHover = null;
+        }
     }
 }

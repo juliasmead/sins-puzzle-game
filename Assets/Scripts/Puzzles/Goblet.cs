@@ -24,6 +24,10 @@ public class Goblet : MonoBehaviour
 
     public Type AssignableType
     {
+        get
+        {
+            return type;
+        }
         set
         {
             type = value;
@@ -62,7 +66,8 @@ public class Goblet : MonoBehaviour
 
     private Collider2D col;
 
-    private void Awake() {
+    private void Awake()
+    {
         col = GetComponent<Collider2D>();
     }
 
@@ -111,11 +116,12 @@ public class Goblet : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         transform.position = originalPosition;
-        if (currentHover != this)
+        if (currentHover != this && currentHover != null)
         {
             Type tempType = type;
             AssignableType = currentHover.type;
             currentHover.AssignableType = tempType;
+            GobletPuzzle.SolveEvent();
         }
         col.enabled = true;
         rend.sortingOrder = 0;
@@ -129,5 +135,13 @@ public class Goblet : MonoBehaviour
     private void OnMouseEnter()
     {
         currentHover = this;
+    }
+
+    private void OnMouseExit()
+    {
+        if (currentHover == this)
+        {
+            currentHover = null;
+        }
     }
 }
