@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,8 +16,22 @@ public class MenuManager : MonoBehaviour
     public GameObject credits;
     public GameObject settings;
 
+    /// <summary>
+    /// Main audio mixer.
+    /// </summary>
+    public AudioMixer mix;
+
+    private const string HAX = "allUnlocks";
+
     private void Awake()
     {
+        FileData.Load(mix);
+#if UNITY_EDITOR
+        if (EditorPrefs.GetBool(HAX))
+        {
+            FileData.Hax();
+        }
+#endif
         Button[] mainButtons = main.GetComponentsInChildren<Button>();
 
         mainButtons[0].onClick.AddListener(StartGame);
@@ -32,21 +48,25 @@ public class MenuManager : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene("Lust");
+        // Final Version:
+        //SceneManager.LoadScene(FileData.sinsNames[0]);
+        SceneManager.LoadScene("Gluttony");
     }
 
     private void Continue()
     {
-
+        SceneManager.LoadScene(FileData.sinsNames[FileData.data.currentLevel]);
     }
 
-    private void InvertPage(GameObject g) {
+    private void InvertPage(GameObject g)
+    {
         g.SetActive(!g.activeSelf);
         main.SetActive(!main.activeSelf);
     }
 
     private void Exit()
     {
+        FileData.Save();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
