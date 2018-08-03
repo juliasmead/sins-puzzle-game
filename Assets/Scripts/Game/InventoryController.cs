@@ -30,34 +30,35 @@ public class InventoryController : MonoBehaviour
         public Sprite sprite;
     }
 
-    public delegate bool Opened();
     /// <summary>
     /// Checks if the inventory is currently open. 
     /// </summary>
-    public static Opened OpenedEvent;
+    public static Func<bool> OpenedEvent;
 
-    public delegate bool Unlock(PickupType p);
     /// <summary>
     /// Attempts to use the active item. 
     /// </summary>
-    public static Unlock UseEvent;
+    public static Func<PickupType, bool> UseEvent;
 
     /// <summary>
     /// Adds a pickup.
     /// </summary>
     public static Action<PickupType> AddPickupEvent;
 
-    public delegate Sprite GetSprite(PickupType p);
+	/// <summary>
+	/// Gets the current active item;
+	/// </summary>
+	public static Func<InventoryItem> GetActiveItemEvent;
+
     /// <summary>
     /// Gets the sprite for a given pickup. 
     /// </summary>
-    public static GetSprite SpriteEvent;
+    public static Func<PickupType, Sprite> SpriteEvent;
 
-    public delegate Viewable GetViewable(PickupType p);
     /// <summary>
     /// Gets the viewable sprite for a given pickup. 
     /// </summary>
-    public static GetViewable ViewableEvent;
+    public static Func<PickupType, Viewable> ViewableEvent;
 
     /// <summary>
     /// Shows the viewable sprite
@@ -146,6 +147,7 @@ public class InventoryController : MonoBehaviour
             OpenedEvent = IsOpened;
             UseEvent = UsePickup;
             AddPickupEvent = AddPickup;
+			GetActiveItemEvent = delegate { return activeItem; };
             ShowViewableEvent = ShowViewable;
             expander.onClick.AddListener(Expand);
             inventoryItems = GetComponentsInChildren<InventoryItem>();

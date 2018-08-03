@@ -9,25 +9,23 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    public delegate void AssignWall(Action a);
     /// <summary>
     /// Assigns an action to clicking the right wall button. 
     /// </summary>
-    public static AssignWall AssignRightWallEvent;
+    public static Action<Action> AssignRightWallEvent;
     /// <summary>
     /// Assigns an action to clicking the left wall button. 
     /// </summary>
-    public static AssignWall AssignLeftWallEvent;
+    public static Action<Action> AssignLeftWallEvent;
 
-    public delegate void SetWallInteractable(bool i);
     /// <summary>
     /// Sets whether the right wall button is interactable. 
     /// </summary>
-    public static SetWallInteractable SetRightWallInteractableEvent;
+    public static Action<bool> SetRightWallInteractableEvent;
     /// <summary>
     /// Sets whether the left wall button is interactable. 
     /// </summary>
-    public static SetWallInteractable SetLeftWallInteractableEvent;
+    public static Action<bool> SetLeftWallInteractableEvent;
 
     /// <summary>
     /// The right wall button.
