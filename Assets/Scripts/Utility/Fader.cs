@@ -21,7 +21,7 @@ public class Fader : MonoBehaviour
 	/// </summary>
 	public static Action<string> SceneEvent;
 
-	public static Fader instance;
+	private static Fader instance;
 
 	private FadeableUI fadeable;
 
