@@ -129,6 +129,7 @@ public class Goblet : MonoBehaviour
 
     private void OnMouseDown()
     {
+		CursorController.Click("");
         StartCoroutine(FollowCursor());
     }
 
