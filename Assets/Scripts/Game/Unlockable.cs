@@ -22,9 +22,14 @@ public class Unlockable : FadeableSprite {
 
     void OnMouseDown()
     {
-        if (InventoryController.UseEvent(pickupRequired))
-        {
-            Unlock();
-        }
+		if (InventoryController.UseEvent(pickupRequired))
+		{
+			CursorController.Click("ClickAccept");
+			Unlock();
+		}
+		else
+		{
+			CursorController.Click("ClickRed");
+		}
     }
 }

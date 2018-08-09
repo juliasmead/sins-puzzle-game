@@ -28,6 +28,8 @@ public class ClickableObject : MonoBehaviour {
 		public bool deleteOnClick = true;
 
 		public Actionable actionable;
+
+		public Actionable defaultAction;
 	}
 
 	public List<Click> clicks;
@@ -37,8 +39,9 @@ public class ClickableObject : MonoBehaviour {
 		if (clicks.Count > 0)
 		{
 			Click c = clicks[0];
-			if(c.pickupRequired == InventoryController.GetActiveItemEvent().Type)
+			if(c.pickupRequired == InventoryController.PickupType.none || c.pickupRequired == InventoryController.GetActiveItemEvent().Type)
 			{
+				CursorController.Click("ClickAccept");
 				if(c.PickupIsRequired && c.usedOnClick)
 				{
 					InventoryController.UseEvent(c.pickupRequired);
@@ -50,6 +53,15 @@ public class ClickableObject : MonoBehaviour {
 				if (c.deleteOnClick)
 				{
 					clicks.Remove(c);
+				}
+			} else
+			{
+				if (c.defaultAction == null)
+				{
+					CursorController.Click("ClickRed");
+				} else
+				{
+					c.defaultAction.ExecuteAction();
 				}
 			}
 			
