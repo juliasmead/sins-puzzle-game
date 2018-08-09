@@ -1388,11 +1388,6 @@ Prefab:
     m_Modifications:
     - target: {fileID: 224578838449539888, guid: 6f1652b1f87c84aed93f9108f419381b,
         type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 224578838449539888, guid: 6f1652b1f87c84aed93f9108f419381b,
-        type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -11071,7 +11066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1735295454
 RectTransform:
   m_ObjectHideFlags: 0
