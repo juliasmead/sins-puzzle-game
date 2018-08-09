@@ -15,12 +15,12 @@ public class LevelSelect : MonoBehaviour
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button b in buttons)
         {
-            b.onClick.AddListener(delegate { LoadLevel(b.GetComponent<TextMeshProUGUI>().text); });
+			b.onClick.AddListener(delegate { LoadLevel(b.GetComponent<TextMeshProUGUI>().text); });
         }
     }
 
-    private void LoadLevel(string s)
+	private void LoadLevel(string s)
     {
-        SceneManager.LoadScene(s);
+		Fader.SceneEvent(s);
     }
 }
