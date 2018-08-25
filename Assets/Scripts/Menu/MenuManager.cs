@@ -11,9 +11,21 @@ using UnityEngine.UI;
 /// </summary>
 public class MenuManager : MonoBehaviour
 {
+	/// <summary>
+	/// The main menu.
+	/// </summary>
 	public GameObject main;
+	/// <summary>
+	/// The level select page.
+	/// </summary>
 	public GameObject levelSelect;
+	/// <summary>
+	/// The credits page.
+	/// </summary>
 	public GameObject credits;
+	/// <summary>
+	/// The settings page.
+	/// </summary>
 	public GameObject settings;
 
 	/// <summary>
@@ -58,17 +70,26 @@ public class MenuManager : MonoBehaviour
 		Fader.SceneEvent("Gluttony");
 	}
 
+	/// <summary>
+	/// Continues the game from where it was last left off. 
+	/// </summary>
 	private void Continue()
 	{
 		Fader.SceneEvent(FileData.sinsNames[FileData.data.currentLevel]);
 	}
 
+	/// <summary>
+	/// Inverts the active state of the current page. 
+	/// </summary>
 	private void InvertPage(GameObject g)
 	{
 		g.SetActive(!g.activeSelf);
 		main.SetActive(!main.activeSelf);
 	}
 
+	/// <summary>
+	/// Exits the game. 
+	/// </summary>
 	private void Exit()
 	{
 		FileData.Save();

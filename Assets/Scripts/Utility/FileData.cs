@@ -12,6 +12,9 @@ using UnityEngine.Audio;
 /// </summary>
 public static class FileData
 {
+	/// <summary>
+	/// The names of each sin/level in order.
+	/// </summary>
     public static string[] sinsNames = new string[7] { "Lust", "Wrath", "Sloth", "Greed", "Gluttony", "Envy", "Pride" };
 
     /// <summary>

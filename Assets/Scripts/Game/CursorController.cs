@@ -9,41 +9,50 @@ using UnityEngine.UI;
 /// </summary>
 public class CursorController : MonoBehaviour
 {
+	/// <summary>
+	/// Gives the cursor a click. 
+	/// </summary>
 	public static Action<string> Click;
+	/// <summary>
+	/// Stops the cursor from generating a click. 
+	/// </summary>
+	public static Action NoClick;
 
-	private Animation anim;
-	private Image im;
+	private Animator anim;
 
 	void Awake()
 	{
-		anim = GetComponent<Animation>();
-		im = GetComponent<Image>();
-		Click = delegate (string s) { StartCoroutine(PlayClick(s)); };
+		anim = GetComponent<Animator>();
+		Click = delegate (string s) { PlayClick(s); };
+		NoClick = delegate { EliminateClick(); };
 	}
 
 	void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			anim.Stop();
-			transform.position = Input.mousePosition;
-			StartCoroutine(PlayClick("Click", false));
+			PlayClick("Click");
 		}
 	}
 
-	private IEnumerator PlayClick(string s, bool delayed = true)
+	/// <summary>
+	/// Causes a click to play (animation set to the given string).
+	/// </summary>
+	/// <param name="s">S.</param>
+	private void PlayClick(string s)
 	{
-		if(delayed)
-		{
-			yield return new WaitForSecondsRealtime(0.05f);
-		}
-		anim.Stop();
-		im.color = new Color(0,0,0,0);
-		transform.position = Input.mousePosition;
-		if (anim.GetClip(s) != null)
-		{
-			anim.Play(s);
-		}
-		yield break;
+		Vector3 pos = Input.mousePosition;
+		pos.z = -Camera.main.transform.position.z;
+		pos = Camera.main.ScreenToWorldPoint(pos);
+		transform.position = pos;
+		anim.SetTrigger(s);
+	}
+
+	/// <summary>
+	/// Eliminates the click.
+	/// </summary>
+	private void EliminateClick()
+	{
+		anim.SetTrigger("None");
 	}
 }

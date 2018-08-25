@@ -32,6 +32,9 @@ public class ClickableObject : MonoBehaviour {
 		public Actionable defaultAction;
 	}
 
+	/// <summary>
+	/// List of events on clicks.
+	/// </summary>
 	public List<Click> clicks;
 
 	void OnMouseDown()
@@ -41,7 +44,7 @@ public class ClickableObject : MonoBehaviour {
 			Click c = clicks[0];
 			if(c.pickupRequired == InventoryController.PickupType.none || c.pickupRequired == InventoryController.GetActiveItemEvent().Type)
 			{
-				CursorController.Click("ClickAccept");
+				CursorController.Click("Accept");
 				if(c.PickupIsRequired && c.usedOnClick)
 				{
 					InventoryController.UseEvent(c.pickupRequired);
@@ -58,7 +61,7 @@ public class ClickableObject : MonoBehaviour {
 			{
 				if (c.defaultAction == null)
 				{
-					CursorController.Click("ClickRed");
+					CursorController.Click("Red");
 				} else
 				{
 					c.defaultAction.ExecuteAction();

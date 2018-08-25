@@ -9,11 +9,23 @@ using UnityEngine.SceneManagement;
 public class Fader : MonoBehaviour
 {
 	public delegate void SelfFade(float f = 0.3f);
+	/// <summary>
+	/// Self fades in the fader.
+	/// </summary>
 	public static SelfFade SelfFadeIn;
+	/// <summary>
+	/// Self fades out the fader. 
+	/// </summary>
 	public static SelfFade SelfFadeOut;
 
 	public delegate IEnumerator Fade(float f = 0.3f);
+	/// <summary>
+	/// Fades in the fader.
+	/// </summary>
 	public static Fade FadeIn;
+	/// <summary>
+	/// Fades out the fader.
+	/// </summary>
 	public static Fade FadeOut;
 
 	/// <summary>

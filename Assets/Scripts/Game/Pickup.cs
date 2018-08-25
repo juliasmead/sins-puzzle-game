@@ -34,7 +34,7 @@ public class Pickup : FadeableSprite {
     }
 
     void OnMouseDown() {
-		CursorController.Click("ClickAccept");
+		CursorController.Click("Accept");
         InventoryController.AddPickupEvent(pickupType);
         SelfFadeOut(dur: 0.15f);
     }

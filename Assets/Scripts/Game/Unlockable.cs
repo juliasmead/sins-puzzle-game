@@ -24,12 +24,12 @@ public class Unlockable : FadeableSprite {
     {
 		if (InventoryController.UseEvent(pickupRequired))
 		{
-			CursorController.Click("ClickAccept");
+			CursorController.Click("Accept");
 			Unlock();
 		}
 		else
 		{
-			CursorController.Click("ClickRed");
+			CursorController.Click("Red");
 		}
     }
 }
