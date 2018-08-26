@@ -5,14 +5,14 @@ using UnityEditor;
 using UnityEditor.Animations;
 
 /// <summary>
-/// Editor tool for adding animation to an animator
+/// Editor tool for adding animations to an animator
 /// </summary>
 public class AddAnimationToAnimator : EditorWindow
 {
-	public AnimationClip animation;
+	public List<AnimationClip> animations;
 	public AnimatorController animator;
 
-	[MenuItem("Assets/Add Animation to Animator")]
+	[MenuItem("Assets/Add Animations to Animator")]
 	static void Init()
 	{
 		EditorWindow window = GetWindow(typeof(AddAnimationToAnimator));
@@ -21,21 +21,46 @@ public class AddAnimationToAnimator : EditorWindow
 
 	void OnGUI()
 	{
+		if (animations == null)
+		{
+			animations = new List<AnimationClip>();
+			animations.Add(null);
+		}
 		EditorGUILayout.Space();
-		animation = (AnimationClip)EditorGUILayout.ObjectField("Animation", animation, typeof(AnimationClip), true);
+		for (int i = 0; i < animations.Count; ++i)
+		{
+			animations[i] = (AnimationClip)EditorGUILayout.ObjectField("Animation " + i, animations[i], typeof(AnimationClip), true);
+			if (animations[i] == null && i < animations.Count - 1)
+			{
+				animations.RemoveAt(i);
+				--i;
+			}
+			else if (animations[i] != null && i == animations.Count - 1)
+			{
+				animations.Add(null);
+			}
+		}
+		EditorGUILayout.Space();
 		animator = (AnimatorController)EditorGUILayout.ObjectField("Animator", animator, typeof(AnimatorController), true);
 		EditorGUILayout.Space();
-		if (GUILayout.Button("Add Asset to path"))
+		EditorGUILayout.Space();
+		if (GUILayout.Button("Add Assets to path"))
 		{
-			if (animation != null && animator != null)
+			if (animations.Count > 1 && animator != null)
 			{
-				AnimationClip a = Instantiate(animation);
-				string n = animation.name;
-				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(animation));
-				a.name = n;
-				AssetDatabase.AddObjectToAsset(a, animator);
-				AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(animator));
-				Debug.Log("Successfully added asset to path.");
+				foreach (AnimationClip animation in animations)
+				{
+					if (animation != null && animator != null)
+					{
+						AnimationClip a = Instantiate(animation);
+						string n = animation.name;
+						AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(animation));
+						a.name = n;
+						AssetDatabase.AddObjectToAsset(a, animator);
+						AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(animator));
+						Debug.Log("Successfully added asset to path.");
+					}
+				}
 			}
 			else
 			{
