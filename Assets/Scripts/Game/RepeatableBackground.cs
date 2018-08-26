@@ -2,18 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used to create an auto-formatted repeatable sprite background. 
+/// </summary>
 [ExecuteInEditMode]
 public class RepeatableBackground : MonoBehaviour
 {
 #if UNITY_EDITOR
+	/// <summary>
+	/// Sprite to be used for the background.
+	/// </summary>
 	public Sprite s;
 
+	/// <summary>
+	/// The number of backgrounds. 
+	/// </summary>
 	[Range(0,10)]
 	public int backgrounds;
 
+	/// <summary>
+	/// The size of each background. 
+	/// </summary>
 	public Vector2 size;
 
+	/// <summary>
+	/// The old number of backgrounds.
+	/// </summary>
 	private int oldBackgrounds;
+
+	/// <summary>
+	/// The old size of the backgrounds. 
+	/// </summary>
 	private Vector2 oldSize;
 
 	void Reset()
@@ -54,6 +73,9 @@ public class RepeatableBackground : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Repositions the children based on their count and size. 
+	/// </summary>
 	private void Reposition()
 	{
 		float x = (size.x / -2f) * (backgrounds - 1);
