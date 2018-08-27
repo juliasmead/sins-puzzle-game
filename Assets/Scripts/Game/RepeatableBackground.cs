@@ -56,6 +56,7 @@ public class RepeatableBackground : MonoBehaviour
 				GameObject g = new GameObject("Bg " + i);
 				g.transform.parent = transform;
 				SpriteRenderer sr = g.AddComponent<SpriteRenderer>();
+				sr.sortingLayerName = "Background";
 				sr.sprite = s;
 				SpriteUtility.ResizeSpriteRendererToDimensions(size, sr);
 			}

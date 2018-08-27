@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: UI
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 4096
+      textureCompression: 1
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7faff9522a2da14409f1bb4da4af9adc, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: fe43877012b9744eaaaa9a0f23f11658, type: 3}
+  - {fileID: 21300000, guid: ba130a9af4287424ca8619741407314a, type: 3}
+  - {fileID: 21300000, guid: 7beb28a7c6273b443a0bf5916ccb5595, type: 3}
+  - {fileID: 21300000, guid: a7c14185eafb85247a313b82e747260a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Arrow
+  - InventoryToggle
+  - Select
+  - Eye
+  m_Tag: UI
+  m_IsVariant: 0

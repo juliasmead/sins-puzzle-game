@@ -41,6 +41,18 @@ TagManager:
   - name: Background
     uniqueID: 3565787557
     locked: 0
+  - name: BackgroundSprite
+    uniqueID: 3644208497
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ForegroundSprite
+    uniqueID: 1210624131
+    locked: 0
+  - name: Foreground
+    uniqueID: 4065432297
+    locked: 0
+  - name: Click
+    uniqueID: 3842076355
     locked: 0

@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Gluttony
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 8192
+      textureCompression: 1
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2059f51eed1e0264ebc6d1fddeb36387, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: edeb33c524821964da555daa1f4e2682, type: 3}
+  - {fileID: 21300000, guid: 0549ce141c26a654f9a7168ce2df761d, type: 3}
+  - {fileID: 21300000, guid: d8ea55bd97cb00b46a5e0fc3f329fb06, type: 3}
+  - {fileID: 21300000, guid: a68e8417ff9f0484ca905982dca0aa85, type: 3}
+  - {fileID: 21300000, guid: e9edb8a1684d0ec46912c0e7d7beaa84, type: 3}
+  - {fileID: 21300000, guid: 5d56544fca60844189f886c2e42abd57, type: 3}
+  - {fileID: 21300000, guid: 8272420eb89c4f142b505b73ce682acf, type: 3}
+  - {fileID: 21300000, guid: f170d7c83437743eca5ec185acfc86bd, type: 3}
+  - {fileID: 21300000, guid: 60c518b2f7c734f92a9fca670fd5966f, type: 3}
+  - {fileID: 21300000, guid: 7bca447c44a514f709dba100355af109, type: 3}
+  - {fileID: 21300000, guid: 9627e178c6384b342b3c815d062956cf, type: 3}
+  - {fileID: 21300000, guid: 4852fb2b89175a84c9ea1efff6ea0a3d, type: 3}
+  - {fileID: 21300000, guid: 48a9b2aa8f58d514fb86d7132ba31b31, type: 3}
+  - {fileID: 21300000, guid: 74183ea05e18a490db34040b29d79e54, type: 3}
+  - {fileID: 21300000, guid: 34552a329e8c4434cb4142d7f4098231, type: 3}
+  - {fileID: 21300000, guid: 130ff2631d9963e418a4a492853df49c, type: 3}
+  - {fileID: 21300000, guid: ad22dd29f12755440aa3be95d174576e, type: 3}
+  - {fileID: 21300000, guid: e038e97c312a7f54cbd44c22167b883c, type: 3}
+  - {fileID: 21300000, guid: 59b3753f2c7fa48eabe04b0a628c7c40, type: 3}
+  - {fileID: 21300000, guid: 55662c005cca64508bd03677c2e19bd0, type: 3}
+  - {fileID: 21300000, guid: a07b2f02fa2da4342bf5d06969c58a21, type: 3}
+  - {fileID: 21300000, guid: 46323ed0dfe1fb540b2baa6cdbe004b5, type: 3}
+  - {fileID: 21300000, guid: 3ce39ef263b504d2ebe46b45fa5654a2, type: 3}
+  - {fileID: 21300000, guid: e4c7d57221525114ca8b1919575ab85c, type: 3}
+  - {fileID: 21300000, guid: 3f90685eb784eac45948cadb5f954173, type: 3}
+  - {fileID: 21300000, guid: 47235dae51534411ba876d42da80ca99, type: 3}
+  - {fileID: 21300000, guid: 6acdae26e3ce4c141a7f571159fde2b1, type: 3}
+  - {fileID: 21300000, guid: 3e7288362a88d4c4d88c0f5914043f1f, type: 3}
+  - {fileID: 21300000, guid: a1da742e9bb397c40a63f524429fca49, type: 3}
+  - {fileID: 21300000, guid: 8e634cf0ec1624db69fb68a634a36bf1, type: 3}
+  - {fileID: 21300000, guid: 6d3a27a0a0f47d04e8ba798f9e531353, type: 3}
+  - {fileID: 21300000, guid: 78697bc50cdb346d79aace4c937a9347, type: 3}
+  - {fileID: 21300000, guid: 9403b79012f190b45b8193d1301657f6, type: 3}
+  - {fileID: 21300000, guid: 44ee92b3e79ca47808128a7fdbe5adc1, type: 3}
+  - {fileID: 21300000, guid: 897a56b29a857c64aa71fbe03bdbb0c8, type: 3}
+  - {fileID: 21300000, guid: b9752cc7bb68d3f4eb8e3b7179700219, type: 3}
+  - {fileID: 21300000, guid: 8e0d69beb0064274d865ccf9001d0bfe, type: 3}
+  - {fileID: 21300000, guid: 17d5f7848e6884768875bc01f0382ff6, type: 3}
+  - {fileID: 21300000, guid: b318a441a482ea14d8cb63e56db13477, type: 3}
+  - {fileID: 21300000, guid: b6298f3adca8cf5459e496b6df6bebb3, type: 3}
+  - {fileID: 21300000, guid: 8f9e0337446794a3bb4274a6637634ee, type: 3}
+  - {fileID: 21300000, guid: 318d2844b7e87124d9b5e296708c6d73, type: 3}
+  - {fileID: 21300000, guid: 96a2e4d3fe4404b2f8c7d7c47a13190e, type: 3}
+  - {fileID: 21300000, guid: 96b16bc8d85764f00b11519f3ad8a9dd, type: 3}
+  - {fileID: 21300000, guid: 6093c588035626e44b15f8ffb3302f37, type: 3}
+  - {fileID: 21300000, guid: 84f230901aeea6d499e1b30e69433c09, type: 3}
+  - {fileID: 21300000, guid: 707e392cbdfb94f8c89e776c245b139f, type: 3}
+  - {fileID: 21300000, guid: 3d36a69226db6f1479b8c118a902e8af, type: 3}
+  - {fileID: 21300000, guid: ebae5431c138844428346e656363ca71, type: 3}
+  - {fileID: 21300000, guid: 81fdccbfc4856c4418871662a1560fed, type: 3}
+  - {fileID: 21300000, guid: 4665fa28374272f4380ae9992be5f45e, type: 3}
+  - {fileID: 21300000, guid: 4147bd13bc4ecfd4db83c53fbd88b361, type: 3}
+  - {fileID: 21300000, guid: 7189f1b9b3cbbca48bf197485ad0bf3b, type: 3}
+  - {fileID: 21300000, guid: 95c7440264b872b45a67c5e1e83d99ed, type: 3}
+  - {fileID: 21300000, guid: 62d8001d33e61bc4f8431573c3d4a4c2, type: 3}
+  - {fileID: 21300000, guid: 293413aa4c9be8e4aaf1543b22591f6e, type: 3}
+  - {fileID: 21300000, guid: e6c7dea5f01b7e5489993609ada8dfa4, type: 3}
+  - {fileID: 21300000, guid: 470a05b4d11410e4faa469c823af79de, type: 3}
+  - {fileID: 21300000, guid: 09ceda0db2f104c0baf1958eda618ab6, type: 3}
+  - {fileID: 21300000, guid: d3fca2c1eb0094a0782284baa1d977b1, type: 3}
+  - {fileID: 21300000, guid: e1551cf60e51a42ce8973a6aab7e9334, type: 3}
+  - {fileID: 21300000, guid: 139ab8c2beba092418f2c396cfb97486, type: 3}
+  - {fileID: 21300000, guid: 4dd790b8f5834a04bad77683f108bb67, type: 3}
+  - {fileID: 21300000, guid: fc3cc09cfd502894697f274a36ecaba6, type: 3}
+  - {fileID: 21300000, guid: 50267d47b2727094e80a67853fb926ad, type: 3}
+  - {fileID: 21300000, guid: 596d4e8b50a704259ae1a9949a20a495, type: 3}
+  - {fileID: 21300000, guid: e12535b5bd17d4dc486dc1d8e667eb54, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - sinsPigPen1
+  - sinsLemon
+  - sinsPigPen2 copy
+  - sinsPigPen4
+  - sinsChocolate
+  - sinsFood5
+  - sinsPigPen3
+  - sinsFood3
+  - sinsOven
+  - sinsOpenOven
+  - sinsGrapeBucket
+  - sinsSugar
+  - sinsEgg
+  - sinsKey
+  - sinsFood1
+  - sinsCIpherNote
+  - sinsMeasureCup
+  - sinsGoblet2
+  - sinsCabinetClosed
+  - sinsCabinetLocked
+  - sinsHalfHam
+  - sinsFlour
+  - sinsCounter
+  - sinsBPowder
+  - sinsGobletPuzzleNote
+  - sinsFramedPainting
+  - sinsGoblet7
+  - sinsGoblet6
+  - sinsGrapes
+  - sinsRuinedCake
+  - sinsGoblet1
+  - sinsBowlWithBatter
+  - sinsBowl
+  - sinsCakeInPan
+  - sinsGoblet3
+  - sinsGoblet4
+  - sinsGoblet5
+  - sinsCakePanEmpty
+  - sinsGoblet8
+  - sinsSalt
+  - gluttonyBGwithFloor
+  - sinsTable
+  - sinsCakePanBatter
+  - sinsCabinetOpen
+  - sinsCinnamon
+  - sinsNutmeg
+  - sinsCabinetLockedOPEN
+  - sinsTableFlat
+  - sinsFood6
+  - sinsFourthTsp
+  - sinsButter
+  - sinsMilk
+  - sinsVanilla
+  - sinsGoblet9
+  - sinsHamSlice
+  - sinsSlicedPig
+  - sinsWholePig
+  - sins1tsp
+  - sinsFood4
+  - sinsFood2
+  - sinsKnife
+  - sinsEggs
+  - sinsOliveOil
+  - sinsEmptyWine
+  - sinsFullWine
+  - sinsOrnatePlate
+  - sinsSpiceRack
+  m_Tag: Gluttony
+  m_IsVariant: 0
