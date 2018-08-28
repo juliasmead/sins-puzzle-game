@@ -13,11 +13,14 @@ public static class SpriteUtility
 	/// </summary>
 	public static void ResizeSpriteRendererToDimensions(Vector2 dimensions, SpriteRenderer s)
 	{
-		Vector3 spriteBounds = s.bounds.size;
-		if (spriteBounds != Vector3.zero && dimensions.x > 0 && dimensions.y > 0)
+		if (s != null)
 		{
-			s.transform.localScale = new Vector3(s.transform.localScale.x * dimensions.x / spriteBounds.x,
-												 s.transform.localScale.y * dimensions.y / spriteBounds.y, 1);
+			Vector3 spriteBounds = s.bounds.size;
+			if (spriteBounds != Vector3.zero && dimensions.x > 0 && dimensions.y > 0)
+			{
+				s.transform.localScale = new Vector3(s.transform.localScale.x * dimensions.x / spriteBounds.x,
+													 s.transform.localScale.y * dimensions.y / spriteBounds.y, 1);
+			}
 		}
 	}
 
@@ -26,8 +29,11 @@ public static class SpriteUtility
 	/// </summary>
 	public static void ResizeSpriteRendererToRect(RectTransform rect, SpriteRenderer s)
 	{
-		Vector2 dimensions = rect.sizeDelta;
-		ResizeSpriteRendererToDimensions(dimensions, s);
+		if (rect != null)
+		{
+			Vector2 dimensions = rect.sizeDelta;
+			ResizeSpriteRendererToDimensions(dimensions, s);
+		}
 	}
 
 	/// <summary>
@@ -35,7 +41,10 @@ public static class SpriteUtility
 	/// </summary>
 	public static void ResizeSpriteRendererToGObj(GameObject g, SpriteRenderer s)
 	{
-		RectTransform rect = g.GetComponent<RectTransform>();
-		ResizeSpriteRendererToRect(rect, s);
+		if (g != null)
+		{
+			RectTransform rect = g.GetComponent<RectTransform>();
+			ResizeSpriteRendererToRect(rect, s);
+		}
 	}
 }

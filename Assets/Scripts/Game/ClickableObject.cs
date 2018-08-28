@@ -22,13 +22,26 @@ public class ClickableObject : MonoBehaviour {
 			get { return pickupRequired != InventoryController.PickupType.none; }
 		}
 
+		/// <summary>
+		/// Uses the pickup when clicked. 
+		/// </summary>
 		[ConditionalHide("PickupIsRequired", true)]
 		public bool usedOnClick = false;
 
+		/// <summary>
+		/// Deletes this action when clicked. 
+		/// </summary>
 		public bool deleteOnClick = true;
 
+		/// <summary>
+		/// The actionable used when this item is successfully clicked on. 
+		/// </summary>
 		public Actionable actionable;
 
+		/// <summary>
+		/// The default action used when this item is unsuccessfully clicked on. 
+		/// </summary>
+		[ConditionalHide("PickupIsRequired", true)]
 		public Actionable defaultAction;
 	}
 
@@ -42,7 +55,7 @@ public class ClickableObject : MonoBehaviour {
 		if (clicks.Count > 0)
 		{
 			Click c = clicks[0];
-			if(c.pickupRequired == InventoryController.PickupType.none || c.pickupRequired == InventoryController.GetActiveItemEvent().Type)
+			if(!c.PickupIsRequired || c.pickupRequired == InventoryController.GetActiveItemEvent().Type)
 			{
 				CursorController.Click("Accept");
 				if(c.PickupIsRequired && c.usedOnClick)

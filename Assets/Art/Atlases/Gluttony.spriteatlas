@@ -28,7 +28,7 @@ SpriteAtlas:
       enableTightPacking: 0
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 2059f51eed1e0264ebc6d1fddeb36387, type: 3}
+    - {fileID: 102900000, guid: 78ace978e7c944c32abc75207399dbc8, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -72,7 +72,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 17d5f7848e6884768875bc01f0382ff6, type: 3}
   - {fileID: 21300000, guid: b318a441a482ea14d8cb63e56db13477, type: 3}
   - {fileID: 21300000, guid: b6298f3adca8cf5459e496b6df6bebb3, type: 3}
-  - {fileID: 21300000, guid: 8f9e0337446794a3bb4274a6637634ee, type: 3}
   - {fileID: 21300000, guid: 318d2844b7e87124d9b5e296708c6d73, type: 3}
   - {fileID: 21300000, guid: 96a2e4d3fe4404b2f8c7d7c47a13190e, type: 3}
   - {fileID: 21300000, guid: 96b16bc8d85764f00b11519f3ad8a9dd, type: 3}
@@ -140,7 +139,6 @@ SpriteAtlas:
   - sinsCakePanEmpty
   - sinsGoblet8
   - sinsSalt
-  - gluttonyBGwithFloor
   - sinsTable
   - sinsCakePanBatter
   - sinsCabinetOpen
