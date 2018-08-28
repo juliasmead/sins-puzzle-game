@@ -166,12 +166,10 @@ public class InventoryController : MonoBehaviour
 			}
 			spriteView.GetComponent<Button>().onClick.AddListener(delegate
 			{
-				CursorController.NoClick();
 				StartCoroutine(spriteView.FadeOut(dur: 0.05f));
 			});
 			closeSpriteView.onClick.AddListener(delegate
 			{
-				CursorController.NoClick();
 				StartCoroutine(spriteView.FadeOut(dur: 0.05f));
 			});
 		}
@@ -183,8 +181,9 @@ public class InventoryController : MonoBehaviour
 	{
 		if (Application.isPlaying)
 		{
-			if (((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && !backdrop.IsVisible) ||
-				((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && backdrop.IsVisible))
+			if ((((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && !backdrop.IsVisible) ||
+			     ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && backdrop.IsVisible)) &&
+			    expander.IsInteractable())
 			{
 				Expand();
 			}
@@ -283,7 +282,6 @@ public class InventoryController : MonoBehaviour
 	/// </summary>
 	private void Expand()
 	{
-		CursorController.NoClick();
 		expander.interactable = false;
 		Transform arrow = expander.transform.GetChild(0);
 		arrow.localScale = new Vector3(1, arrow.localScale.y * -1, 1);

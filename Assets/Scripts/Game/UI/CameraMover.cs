@@ -199,7 +199,6 @@ public class CameraMover : MonoBehaviour
 
 	private IEnumerator ChangeWall(bool left)
 	{
-		CursorController.NoClick();
 		justMoved = true;
 		yield return Fader.FadeIn();
 		Fader.SelfFadeOut();

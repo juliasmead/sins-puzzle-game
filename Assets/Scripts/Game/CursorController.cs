@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -31,7 +32,14 @@ public class CursorController : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			PlayClick("Click");
+			if(!EventSystem.current.IsPointerOverGameObject()) {
+				PlayClick("Click");
+			} 
+			else 
+			{
+				anim.ResetTrigger("Red");
+				anim.ResetTrigger("Accept");
+			}
 		}
 	}
 

@@ -52,7 +52,6 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
                 if (v != null)
                 {
                     b.onClick.AddListener(delegate {
-						CursorController.NoClick();
 						InventoryController.ShowViewableEvent(v.sprite); });
                 }
             }
@@ -179,7 +178,6 @@ public class InventoryItem : FadeableUI, IPointerDownHandler, IPointerEnterHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-		CursorController.NoClick();
 		StartCoroutine(FollowCursor());
     }
 
