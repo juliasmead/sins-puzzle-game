@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: 
-    guid: 417e4101ce2834112b54532a6b68d216
   - enabled: 1
     path: Assets/Scenes/Gluttony.unity
     guid: 92734ee22de944ba489866defb5cec15
