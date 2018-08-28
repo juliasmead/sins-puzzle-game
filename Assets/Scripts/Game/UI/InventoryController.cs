@@ -183,6 +183,11 @@ public class InventoryController : MonoBehaviour
 	{
 		if (Application.isPlaying)
 		{
+			if (((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && !backdrop.IsVisible) ||
+				((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && backdrop.IsVisible))
+			{
+				Expand();
+			}
 		}
 		else
 		{

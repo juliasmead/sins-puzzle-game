@@ -33,6 +33,11 @@ public class CameraMover : MonoBehaviour
 	private const float SPEED = 100f;
 
 	/// <summary>
+	/// The speed at which the camera moves via keyboard. 
+	/// </summary>
+	private const float KEYBOARD_SPEED = 15f;
+
+	/// <summary>
 	/// The camera to be moved. 
 	/// </summary>
 	private Camera cam;
@@ -115,6 +120,14 @@ public class CameraMover : MonoBehaviour
 		{
 			MoveByDragging();
 		}
+		else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+		{
+			MoveByKeyboard(true);
+		}
+		else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+		{
+			MoveByKeyboard(false);
+		}
 		else
 		{
 			MoveByLocation();
@@ -170,6 +183,18 @@ public class CameraMover : MonoBehaviour
 		{
 			transform.position = newLocation;
 		}
+	}
+
+	/// <summary>
+	/// Moves the camera by keyboard.
+	/// </summary>
+	private void MoveByKeyboard(bool left)
+	{
+		transform.position = Vector3.MoveTowards(transform.position,
+												  new Vector3(Mathf.Clamp(transform.position.x + (left ? -1 : 1),
+																		  bounds.x, bounds.y), transform.position.y, transform.position.z),
+		                                         KEYBOARD_SPEED * Time.smoothDeltaTime);
+		justMoved = true;
 	}
 
 	private IEnumerator ChangeWall(bool left)
