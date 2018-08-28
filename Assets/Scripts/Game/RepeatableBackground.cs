@@ -30,13 +30,18 @@ public class RepeatableBackground : MonoBehaviour
 	/// <summary>
 	/// The height off the ground the wall edge is. 
 	/// </summary>
-	[Range(0,20)]
+	[Range(0, 20)]
 	public float wallEdgeHeight;
 
 	/// <summary>
 	/// The width of the walls.
 	/// </summary>
 	private const float WALL_WIDTH = 7f;
+
+	/// <summary>
+	/// The color of the walls.
+	/// </summary>
+	private const float WALL_COLOR = 230f / 255f;
 
 	/// <summary>
 	/// The width of the wall edges.
@@ -82,27 +87,33 @@ public class RepeatableBackground : MonoBehaviour
 
 	void Reset()
 	{
-		size = Vector2.one;
-		oldSize = Vector2.one;
-		oldBackgrounds = 0;
-		oldEdgeHeight = 0;
+		if (!Application.isPlaying)
+		{
+			size = Vector2.one;
+			oldSize = Vector2.one;
+			oldBackgrounds = 0;
+			oldEdgeHeight = 0;
+		}
 	}
 
 	void Update()
 	{
-		if (oldSize != size || oldEdgeHeight != wallEdgeHeight)
+		if (!Application.isPlaying)
 		{
-			foreach (Transform child in transform)
+			if (oldSize != size || oldEdgeHeight != wallEdgeHeight)
 			{
-				SpriteUtility.ResizeSpriteRendererToDimensions(size, child.GetComponent<SpriteRenderer>());
+				foreach (Transform child in transform)
+				{
+					SpriteUtility.ResizeSpriteRendererToDimensions(size, child.GetComponent<SpriteRenderer>());
+				}
+				oldSize = size;
+				oldEdgeHeight = wallEdgeHeight;
+				RegenerateBackgrounds();
 			}
-			oldSize = size;
-			oldEdgeHeight = wallEdgeHeight;
-			RegenerateBackgrounds();
-		}
-		else if (oldBackgrounds != backgrounds)
-		{
-			RegenerateBackgrounds();
+			else if (oldBackgrounds != backgrounds)
+			{
+				RegenerateBackgrounds();
+			}
 		}
 	}
 
@@ -113,7 +124,7 @@ public class RepeatableBackground : MonoBehaviour
 		{
 			DestroyImmediate(transform.GetChild(i).gameObject);
 		}
-		for (; i < backgrounds; ++i)
+		for (; i < backgrounds + 2; ++i)
 		{
 			GameObject g = new GameObject("Bg " + i);
 			g.transform.parent = transform;
@@ -127,72 +138,68 @@ public class RepeatableBackground : MonoBehaviour
 		oldBackgrounds = backgrounds;
 	}
 
-	private Transform CreateWall(string n, float multiplier = 1, int sorting = 0)
+	private void CreateWall(SpriteRenderer sr, bool flip = false)
 	{
-		GameObject g = new GameObject(n);
-		g.transform.parent = transform;
-		Material m = new Material(Shader.Find("Sprites/Default"));
-		m.mainTexture = s.texture;
-		MeshRenderer mr = g.AddComponent<MeshRenderer>();
-		mr.sortingLayerName = "Background";
-		mr.sortingOrder = sorting;
-		mr.sharedMaterial = m;
-		MeshFilter mf = g.AddComponent<MeshFilter>();
-		Mesh mesh = new Mesh();
-		mf.sharedMesh = mesh;
+		sr.sprite = Sprite.Create(s.texture, s.rect, new Vector2(0.5f, 0.5f), s.pixelsPerUnit);
+		SpriteUtility.ResizeSpriteRendererToDimensions(new Vector2(WALL_WIDTH, size.y), sr);
+		Vector3 newPos = sr.transform.localPosition;
+		newPos.x += (size.x - WALL_WIDTH) / (flip ? -2 : 2);
+		sr.transform.localPosition = newPos;
+		Shader sh = Shader.Find("Walls");
+		sr.sharedMaterial = new Material(sh);
+		sr.sharedMaterial.SetFloat("_Left", flip ? 0 : 1);
+		sr.sharedMaterial.SetFloat("_Right", flip ? 1 : 0);
+		sr.color = new Color(WALL_COLOR, WALL_COLOR, WALL_COLOR, 1);
 
-		Vector3[] vertices = new Vector3[4];
-
-		vertices[0] = new Vector3(0, 0, 0);
-		vertices[1] = new Vector3(WALL_WIDTH, size.y, 0);
-		vertices[2] = new Vector3(0, size.y * multiplier, 0);
-		vertices[3] = new Vector3(WALL_WIDTH, size.y * 2f, 0);
-
-		mesh.vertices = vertices;
-
-		int[] tri = new int[6];
-
-		tri[0] = 0;
-		tri[1] = 2;
-		tri[2] = 1;
-
-		tri[3] = 2;
-		tri[4] = 3;
-		tri[5] = 1;
-
-		mesh.triangles = tri;
-
-		Vector3[] normals = Enumerable.Repeat(-Vector3.forward, 4).ToArray();
-		mesh.normals = normals;
-
-		Vector2[] uv = new Vector2[4];
-
-		uv[0] = new Vector2(0, 0);
-		uv[1] = new Vector2(1, 0);
-		uv[2] = new Vector2(0, 1);
-		uv[3] = new Vector2(1, 1);
-
-		mesh.uv = uv;
-
-		if (multiplier == 1)
+		if (!flip)
 		{
-			CreateWallEdge(g.transform);
+			Vector2[] sv = sr.sprite.vertices;
+			ushort[] tri = sr.sprite.triangles;
+
+			for (int i = 0; i < sv.Length; i++)
+			{
+				sv[i].x = Mathf.Clamp(
+						(s.vertices[i].x - s.bounds.center.x -
+						 (s.textureRectOffset.x / s.texture.width) + s.bounds.extents.x) /
+						(2.0f * s.bounds.extents.x) * s.rect.width,
+						0.0f, s.rect.width);
+
+				sv[i].y = Mathf.Clamp(
+						(s.vertices[i].y - s.bounds.center.y -
+						 (s.textureRectOffset.y / s.texture.height) + s.bounds.extents.y) /
+						(2.0f * s.bounds.extents.y) * s.rect.height,
+						0.0f, s.rect.height);
+			}
+
+			tri[0] = 3;
+			tri[1] = 2;
+			tri[2] = 1;
+
+			tri[3] = 2;
+			tri[4] = 3;
+			tri[5] = 0;
+
+			sr.sprite.OverrideGeometry(sv, tri);
 		}
 
-		return g.transform;
+		CreateWallEdge(sr.transform);
 	}
 
-	private void CreateWallEdge(Transform t) {
+	private void CreateWallEdge(Transform t)
+	{
 		GameObject g = new GameObject("Wall Edge");
-		g.transform.parent = t;
+		g.transform.parent = t.parent;
 		SpriteRenderer sr = g.AddComponent<SpriteRenderer>();
-		sr.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+		sr.sprite = transform.GetComponent<SpriteRenderer>().sprite;
 		sr.color = new Color(0, 0, 0, 144f / 255f);
 		sr.drawMode = SpriteDrawMode.Sliced;
 		sr.size = new Vector2(WALL_EDGE_WIDTH, size.y);
 		sr.sortingLayerName = "Background";
 		sr.sortingOrder = 10;
-		g.transform.localPosition = new Vector3(WALL_WIDTH + WALL_EDGE_ADJUST, (size.y * 1.5f) + wallEdgeHeight);
+		g.transform.localPosition = new Vector3((((WALL_WIDTH / 2f) + WALL_EDGE_ADJUST) * 
+		                                         -(t.transform.localPosition.x / Mathf.Abs(t.transform.localPosition.x))) 
+		                                        + t.transform.localPosition.x, wallEdgeHeight);
+		g.transform.parent = t;
 	}
 
 	/// <summary>
@@ -200,22 +207,14 @@ public class RepeatableBackground : MonoBehaviour
 	/// </summary>
 	private void Reposition()
 	{
-		float x = (size.x / -2f) * (backgrounds - 1);
+		float x = (size.x / -2f) * (backgrounds + 1);
 		foreach (Transform child in transform)
 		{
 			child.localPosition = new Vector3(x, 0, 0);
 			x += size.x;
 		}
-		Transform left = CreateWall("Left");
-		Transform leftBack = CreateWall("LeftBack", 2, -5);
-		Transform right = CreateWall("Right");
-		Transform rightBack = CreateWall("LeftBack", 2, -5);
-		right.localScale = new Vector3(-1, 1, 1);
-		rightBack.localScale = right.localScale;
-		left.localPosition = new Vector3(((size.x / -2f) * (backgrounds)) - WALL_WIDTH, size.y * -1.5f, 0);
-		leftBack.localPosition = left.localPosition;
-		right.localPosition = new Vector3(((size.x / 2f) * (backgrounds)) + WALL_WIDTH, size.y * -1.5f, 0);
-		rightBack.localPosition = right.localPosition;
+		CreateWall(transform.GetChild(0).GetComponent<SpriteRenderer>());
+		CreateWall(transform.GetChild(transform.childCount - 1).GetComponent<SpriteRenderer>(), true);
 	}
 #endif
 }
