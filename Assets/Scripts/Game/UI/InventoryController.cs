@@ -126,6 +126,11 @@ public class InventoryController : MonoBehaviour
 	public List<Viewable> viewableObjects;
 
 	/// <summary>
+	/// Whether or not the first pickup has been obtained. 
+	/// </summary>
+	private static bool firstPickup = true;
+
+	/// <summary>
 	/// The list of all inventory items. 
 	/// </summary>
 	private InventoryItem[] inventoryItems;
@@ -182,8 +187,8 @@ public class InventoryController : MonoBehaviour
 		if (Application.isPlaying)
 		{
 			if ((((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && !backdrop.IsVisible) ||
-			     ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && backdrop.IsVisible)) &&
-			    expander.IsInteractable())
+				 ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && backdrop.IsVisible)) &&
+				expander.IsInteractable())
 			{
 				Expand();
 			}
@@ -264,6 +269,14 @@ public class InventoryController : MonoBehaviour
 	/// </summary>
 	private void AddPickup(PickupType p)
 	{
+		if (firstPickup)
+		{
+			if (!backdrop.IsVisible)
+			{
+				Expand();
+			}
+			firstPickup = false;
+		}
 		int i = 0;
 		while (inventoryItems[i].IsVisible)
 		{
