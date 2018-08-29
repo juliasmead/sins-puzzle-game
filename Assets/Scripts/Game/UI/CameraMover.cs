@@ -72,8 +72,30 @@ public class CameraMover : MonoBehaviour
 	/// </summary>
 	private static bool startRight = false;
 
+	/// <summary>
+	/// To allow OnEnable to load after UIManager's awake function. 
+	/// </summary>
+	private bool initialized = false;
+
 	private void OnEnable()
 	{
+		if (UIManager.initialized)
+		{
+			Initialize();
+		}
+	}
+
+	private void Start()
+	{
+		if (!initialized && gameObject.activeInHierarchy)
+		{
+			Initialize();
+		}
+	}
+
+	private void Initialize()
+	{
+		initialized = true;
 		if (leftWall)
 		{
 			UIManager.AssignLeftWallEvent(delegate
@@ -193,7 +215,7 @@ public class CameraMover : MonoBehaviour
 		transform.position = Vector3.MoveTowards(transform.position,
 												  new Vector3(Mathf.Clamp(transform.position.x + (left ? -1 : 1),
 																		  bounds.x, bounds.y), transform.position.y, transform.position.z),
-		                                         KEYBOARD_SPEED * Time.smoothDeltaTime);
+												 KEYBOARD_SPEED * Time.smoothDeltaTime);
 		justMoved = true;
 	}
 

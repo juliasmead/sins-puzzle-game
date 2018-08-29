@@ -34,11 +34,13 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: fe43877012b9744eaaaa9a0f23f11658, type: 3}
   - {fileID: 21300000, guid: ba130a9af4287424ca8619741407314a, type: 3}
+  - {fileID: 21300000, guid: e8a6c63ed45ad479ab0f5f0c1b003426, type: 3}
   - {fileID: 21300000, guid: 7beb28a7c6273b443a0bf5916ccb5595, type: 3}
   - {fileID: 21300000, guid: a7c14185eafb85247a313b82e747260a, type: 3}
   m_PackedSpriteNamesToIndex:
   - Arrow
   - InventoryToggle
+  - Pause
   - Select
   - Eye
   m_Tag: UI

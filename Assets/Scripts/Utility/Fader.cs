@@ -28,10 +28,11 @@ public class Fader : MonoBehaviour
 	/// </summary>
 	public static Fade FadeOut;
 
+	public delegate void SceneLoad(string s, bool save = false);
 	/// <summary>
 	/// Fades in the given scene.
 	/// </summary>
-	public static Action<string> SceneEvent;
+	public static SceneLoad SceneEvent;
 
 	private static Fader instance;
 
@@ -64,9 +65,14 @@ public class Fader : MonoBehaviour
 				fadeable.Show();
 				fadeable.SelfFadeOut(dur: f);
 			};
-			SceneEvent = delegate (string s) { 
+			SceneEvent = delegate (string s, bool b)
+			{
+				if (b)
+				{
+					FileData.Save();
+				}
 				gameObject.SetActive(true);
-				StartCoroutine(FadeInScene(s)); 
+				StartCoroutine(FadeInScene(s));
 			};
 		}
 		else

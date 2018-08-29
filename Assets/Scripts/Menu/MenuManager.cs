@@ -33,17 +33,9 @@ public class MenuManager : MonoBehaviour
 	/// </summary>
 	public AudioMixer mix;
 
-	private const string HAX = "allUnlocks";
-
 	private void Awake()
 	{
-		FileData.Load(mix);
-#if UNITY_EDITOR
-		if (EditorPrefs.GetBool(HAX))
-		{
-			FileData.Hax();
-		}
-#endif
+		Utils.Load(mix);
 		Button[] mainButtons = main.GetComponentsInChildren<Button>();
 
 		mainButtons[0].onClick.AddListener(StartGame);
@@ -51,7 +43,7 @@ public class MenuManager : MonoBehaviour
 		mainButtons[2].onClick.AddListener(delegate { InvertPage(levelSelect); });
 		mainButtons[3].onClick.AddListener(delegate { InvertPage(credits); });
 		mainButtons[4].onClick.AddListener(delegate { InvertPage(settings); });
-		mainButtons[5].onClick.AddListener(Exit);
+		mainButtons[5].onClick.AddListener(Utils.Exit);
 
 		levelSelect.GetComponentInChildren<Button>().onClick.AddListener(delegate { InvertPage(levelSelect); });
 		credits.GetComponentInChildren<Button>().onClick.AddListener(delegate { InvertPage(credits); });
@@ -85,18 +77,5 @@ public class MenuManager : MonoBehaviour
 	{
 		g.SetActive(!g.activeSelf);
 		main.SetActive(!main.activeSelf);
-	}
-
-	/// <summary>
-	/// Exits the game. 
-	/// </summary>
-	private void Exit()
-	{
-		FileData.Save();
-#if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
 	}
 }
